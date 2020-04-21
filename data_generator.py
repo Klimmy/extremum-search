@@ -91,13 +91,13 @@ class syntheticSeries:
         self.YMax = (extrema * (extrema == -1) * -1).astype(int)
 
     def get_extrema_quantity(self):
-        return sum(data.YMin) + sum(data.YMax)
+        return sum(self.YMin) + sum(self.YMax)
 
-    def calculate_optimal_T(self, period=10, plot=False):
+    def calculate_optimal_T(self, period=10, verbose=False):
         """
         Calculates optimal T for desired period
         :param period: Desired average period between two extrema
-        :param plot: Show the plot of loss for different T
+        :param verbose: Show the plot of loss for different T
         :return: float, optimal T between 0.0 and 3.0
         """
         needed = (self.N * self.M) // period
@@ -105,13 +105,56 @@ class syntheticSeries:
         loss = np.empty((iterations))
         for i in range(iterations):
             T = i / 100
-            self.X.calculate_extrema(T)
-            loss[i] = ((self.X.get_extrema_quantity() - needed) / needed) ** 2
-        if plot:
+            self.calculate_extrema(T)
+            loss[i] = ((self.get_extrema_quantity() - needed) / needed) ** 2
+        if verbose:
             plt.figure(figsize=(12, 8), dpi=80)
             plt.plot(np.array(range(iterations)) / 100, loss)
             plt.show()
         return loss.argmin() / 100
+
+    def plot_random_subseries(self, quantity=4, mode='together'):
+        """
+        Draw several plots (equals to quantity) of generated subseries from series X
+        :param quantity: Amount of subseries will be fetched
+        :param mode: Mode how plots will be drawn. "together" on one figure; "separate" on separate
+        :param seed: integer to reproduction
+        """
+        if self.X.size == 0:
+            raise Exception('You need to generate data first. Check "generate" function')
+        if quantity <= 0 or not isinstance(quantity, int):
+            raise Exception('quantity have to be positive integer')
+        if mode == 'together':
+            fig = plt.figure(num='Time series X with random subseries', constrained_layout=True, figsize=(12, 8), dpi=80)
+            grid = fig.add_gridspec((quantity + 1) // 2 + 1, 2)
+            ax = fig.add_subplot(grid[0, :], title='All time series X. Length {}'.format(int(self.N * self.M)))
+            ax.plot(self.X, color='g')
+            for position in range(quantity):
+                idx = random.randint(0, self.N * (self.M - 1))
+                sub_X = self.X[idx:idx + self.N]
+                sub_YMin = self.YMin[idx:idx + self.N].nonzero()[0]
+                sub_YMax = self.YMax[idx:idx + self.N].nonzero()[0]
+                ax = fig.add_subplot(grid[position // 2 + 1, position % 2])
+                ax.plot(range(idx, idx + self.N),sub_X, color='g')
+                ax.scatter(sub_YMax + idx, sub_X[sub_YMax], color='r', label='Max', s=15)
+                ax.scatter(sub_YMin + idx, sub_X[sub_YMin], color='b', label='Min', s=15)
+                if position == 0:
+                    ax.legend(loc="best", fontsize=15)
+            plt.show()
+        elif mode == 'separate':
+            for position in range(quantity):
+                plt.figure(num='Random subseries of X with extrema', figsize=(12, 8), dpi=80)
+                idx = random.randint(0, self.N * (self.M - 1))
+                sub_X = self.X[idx:idx + self.N]
+                sub_YMin = self.YMin[idx:idx + self.N].nonzero()[0]
+                sub_YMax = self.YMax[idx:idx + self.N].nonzero()[0]
+                plt.plot(range(idx, idx + self.N), sub_X, color='g')
+                plt.scatter(sub_YMax + idx, sub_X[sub_YMax], color='r', label='Max', s=20)
+                plt.scatter(sub_YMin + idx, sub_X[sub_YMin], color='b', label='Min', s=20)
+                plt.legend(loc="best", fontsize=15)
+                plt.show()
+        else:
+            raise Exception('Unrecognized mode. Currently supported either "together" or "separate"')
 
     def _get_extrema(self):
         """
@@ -172,8 +215,9 @@ if __name__ == '__main__':
     N = args.N
     M = args.M
     T = args.T
+    k = args.k
     seed_val = args.seed
-    data = syntheticSeries(N, M)
+    data = syntheticSeries(N, M, k)
     data.generate(seed=seed_val)
     data.calculate_extrema(T)
 
