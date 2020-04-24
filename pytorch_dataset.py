@@ -17,7 +17,7 @@ def parse_arguments():
                         default=1000)
     parser.add_argument('-T',
                         help='T, multiplier for extremum constraint. The bigger T the less extrema will be found',
-                        type=int,
+                        type=float,
                         nargs='?',
                         default=1.1)
     parser.add_argument('-k',
