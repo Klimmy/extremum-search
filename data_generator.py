@@ -113,7 +113,7 @@ class syntheticSeries:
             plt.show()
         return loss.argmin() / 100
 
-    def plot_random_subseries(self, quantity=4, mode='together'):
+    def plot_random_subseries(self, quantity=4, mode='together', prediction_model=None):
         """
         Draw several plots (equals to quantity) of generated subseries from series X
         :param quantity: Amount of subseries will be fetched
@@ -143,15 +143,26 @@ class syntheticSeries:
             plt.show()
         elif mode == 'separate':
             for position in range(quantity):
-                plt.figure(num='Random subseries of X with extrema', figsize=(12, 8), dpi=80)
+
+                fig = plt.figure(num='Random subseries of X with extrema', figsize=(12, 8), dpi=80)
+                if prediction_model is not None:
+                    ax_grid = 211
+                else:
+                    ax_grid = 111
+                ax1 = fig.add_subplot(ax_grid)
                 idx = random.randint(0, self.N * (self.M - 1))
                 sub_X = self.X[idx:idx + self.N]
                 sub_YMin = self.YMin[idx:idx + self.N].nonzero()[0]
                 sub_YMax = self.YMax[idx:idx + self.N].nonzero()[0]
-                plt.plot(range(idx, idx + self.N), sub_X, color='g')
-                plt.scatter(sub_YMax + idx, sub_X[sub_YMax], color='r', label='Max', s=20)
-                plt.scatter(sub_YMin + idx, sub_X[sub_YMin], color='b', label='Min', s=20)
-                plt.legend(loc="best", fontsize=15)
+                ax1.plot(range(idx, idx + self.N), sub_X, color='g')
+                ax1.scatter(sub_YMax + idx, sub_X[sub_YMax], color='r', label='Max', s=20)
+                ax1.scatter(sub_YMin + idx, sub_X[sub_YMin], color='b', label='Min', s=20)
+                if prediction_model is not None:
+                    ax2 = fig.add_subplot(212)
+                    sub_YMin_prediction, sub_YMax_prediction = prediction_model.predict_proba(sub_X)
+                    ax2.plot(range(idx, idx + self.N), sub_YMin_prediction, color='r')
+                    ax2.plot(range(idx, idx + self.N), sub_YMax_prediction, color='b')
+                ax1.legend(loc="best", fontsize=15)
                 plt.show()
         else:
             raise Exception('Unrecognized mode. Currently supported either "together" or "separate"')
