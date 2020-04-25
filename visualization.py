@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 import argparse
+import os
 from matplotlib import pyplot as plt
 import data_generator
 plt.style.use('ggplot')
+
+import model
 
 
 def parse_arguments():
@@ -43,6 +46,15 @@ def parse_arguments():
                         '-s',
                         help='seed to generate time series',
                         type=int)
+    parser.add_argument('--prediction',
+                        help='add predictions to plots',
+                        dest='prediction',
+                        action='store_true')
+    parser.add_argument('--no-prediction',
+                        help='do not add predictions to plots',
+                        dest='prediction',
+                        action='store_false')
+    parser.set_defaults(prediction=False)
     return parser.parse_args()
 
 
@@ -55,8 +67,15 @@ if __name__ == '__main__':
     T = args.T
     k = args.k
     seed_generate = args.seed
+    make_prediction = args.prediction
 
     data = data_generator.syntheticSeries(N, M, k)
     data.generate(seed=seed_generate)
     data.calculate_extrema(T)
-    data.plot_random_subseries(quantity=quantity, mode=mode)
+    if make_prediction:
+        extrem_model = model.Model(N)
+        extrem_model.load(os.path.dirname(__file__) + '/model_weights/extremNet.pth')
+    else:
+        extrem_model = None
+
+    data.plot_random_subseries(quantity=quantity, mode=mode, prediction_model=extrem_model)
