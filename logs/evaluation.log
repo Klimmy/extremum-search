@@ -1,0 +1,21 @@
+2020-04-25 17:50:50,561 - root - INFO - 
+Confusion matrix for YMin 
+[[969544   5007]
+ [ 35168  15305]]
+Accuracy: 0.96 
+Precision: 0.75 
+Recall: 0.30
+2020-04-25 17:50:51,418 - root - INFO - 
+Confusion matrix for YMax 
+[[970178   4599]
+ [ 35599  14648]]
+Accuracy: 0.96 
+Precision: 0.76 
+Recall: 0.29
+2020-04-25 17:50:53,207 - root - INFO - 
+Confusion matrix for All 
+[[1939722    9606]
+ [  70767   29953]]
+Accuracy: 0.96 
+Precision: 0.76 
+Recall: 0.30

@@ -1,3 +1,22 @@
-2020-04-24 23:58:48,970 - root - INFO - 1 epoch, loss_train: 0.1546, loss_test: 0.1589,   time: 0:04:58.297400
-2020-04-25 00:04:09,021 - root - INFO - 2 epoch, loss_train: 0.1510, loss_test: 0.1561,   time: 0:05:20.050784
-2020-04-25 00:04:09,023 - root - INFO - Model trained
+2020-04-25 13:53:54,389 - root - INFO - cuda will be used
+2020-04-25 13:55:28,237 - root - INFO - 1 epoch, loss: 0.1307,  loss_test: 0.1378, time: 0:01:09.763121
+2020-04-25 13:56:38,018 - root - INFO - 2 epoch, loss: 0.1322,  loss_test: 0.1401, time: 0:01:09.760739
+2020-04-25 13:57:47,757 - root - INFO - 3 epoch, loss: 0.1185,  loss_test: 0.1270, time: 0:01:09.716948
+2020-04-25 13:58:57,539 - root - INFO - 4 epoch, loss: 0.1163,  loss_test: 0.1250, time: 0:01:09.754985
+2020-04-25 14:00:07,259 - root - INFO - 5 epoch, loss: 0.1157,  loss_test: 0.1250, time: 0:01:09.704299
+2020-04-25 14:01:16,821 - root - INFO - 6 epoch, loss: 0.1156,  loss_test: 0.1250, time: 0:01:09.544273
+2020-04-25 14:02:26,240 - root - INFO - 7 epoch, loss: 0.1153,  loss_test: 0.1249, time: 0:01:09.400997
+2020-04-25 14:03:35,572 - root - INFO - 8 epoch, loss: 0.1164,  loss_test: 0.1262, time: 0:01:09.307037
+2020-04-25 14:04:44,939 - root - INFO - 9 epoch, loss: 0.1158,  loss_test: 0.1257, time: 0:01:09.339441
+2020-04-25 14:05:54,453 - root - INFO - 10 epoch, loss: 0.1153,  loss_test: 0.1253, time: 0:01:09.497451
+2020-04-25 14:07:04,130 - root - INFO - 11 epoch, loss: 0.1171,  loss_test: 0.1268, time: 0:01:09.656600
+2020-04-25 14:08:14,228 - root - INFO - 12 epoch, loss: 0.1167,  loss_test: 0.1265, time: 0:01:10.071132
+2020-04-25 14:09:24,406 - root - INFO - 13 epoch, loss: 0.1176,  loss_test: 0.1282, time: 0:01:10.147150
+2020-04-25 14:10:34,497 - root - INFO - 14 epoch, loss: 0.1154,  loss_test: 0.1260, time: 0:01:10.067022
+2020-04-25 14:11:44,921 - root - INFO - 15 epoch, loss: 0.1159,  loss_test: 0.1264, time: 0:01:10.400167
+2020-04-25 14:12:55,071 - root - INFO - 16 epoch, loss: 0.1155,  loss_test: 0.1263, time: 0:01:10.124449
+2020-04-25 14:14:05,194 - root - INFO - 17 epoch, loss: 0.1158,  loss_test: 0.1266, time: 0:01:10.100889
+2020-04-25 14:15:15,435 - root - INFO - 18 epoch, loss: 0.1181,  loss_test: 0.1290, time: 0:01:10.220782
+2020-04-25 14:16:25,730 - root - INFO - 19 epoch, loss: 0.1168,  loss_test: 0.1273, time: 0:01:10.265443
+2020-04-25 14:17:35,986 - root - INFO - 20 epoch, loss: 0.1174,  loss_test: 0.1280, time: 0:01:10.232093
+2020-04-25 14:17:45,689 - root - INFO - Model trained
