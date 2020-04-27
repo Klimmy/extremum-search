@@ -26,7 +26,7 @@ def parse_arguments():
                         help='T, multiplier for extremum constraint. The bigger T the less extrema will be found',
                         type=float,
                         nargs='?',
-                        default=1.1)
+                        default=5.2)
     parser.add_argument('-k',
                         help='k, extremum constraint. k + 1 = minimum points between two extrema',
                         type=int,
@@ -112,4 +112,4 @@ if __name__ == '__main__':
 
     show_results('YMin', labels_min_all, predictions_min_all, logger)
     show_results('YMax', labels_max_all, predictions_max_all, logger)
-    show_results('All', np.append(labels_min_all, labels_max_all), np.append(predictions_min_all, predictions_max_all), logger)
+    show_results('All', np.bitwise_or(labels_min_all.astype(int), labels_max_all.astype(int)), np.bitwise_or(predictions_min_all.astype(int), predictions_max_all.astype(int)), logger)
