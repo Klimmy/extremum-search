@@ -19,7 +19,7 @@ def parse_arguments():
                         help='T, multiplier for extremum constraint. The bigger T the less extrema will be found',
                         type=float,
                         nargs='?',
-                        default=1.1)
+                        default=5.2)
     parser.add_argument('-k',
                         help='k, extremum constraint. k + 1 = minimum points between two extrema',
                         type=int,
@@ -35,7 +35,7 @@ class SeriesDataset(Dataset):
     """
     Creates PyTorch Dataset from synthetic time series and extrema as a target
     """
-    def __init__(self, N, M, T=1.1, k=3, seed=None):
+    def __init__(self, N, M, T=5.7, k=3, seed=None):
         """
         Creates time series X of length N*M and extrema with constraints
         :param N: Length of one time series
