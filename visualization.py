@@ -69,7 +69,8 @@ if __name__ == '__main__':
     seed_generate = args.seed
     make_prediction = args.prediction
 
-    data = data_generator.syntheticSeries(N, M, k)
+
+    data = data_generator.SyntheticSeries(N, M, k)
     data.generate(seed=seed_generate)
     data.calculate_extrema(T)
     if make_prediction:

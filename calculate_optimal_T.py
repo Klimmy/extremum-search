@@ -13,6 +13,16 @@ def parse_arguments():
                         help='Desired average period between two extrema',
                         type=int,
                         nargs='?',
+                        default=100)
+    parser.add_argument('--start',
+                        help='Start of the evaluating range for T',
+                        type=int,
+                        nargs='?',
+                        default=2)
+    parser.add_argument('--end',
+                        help='End of the evaluating range for T',
+                        type=int,
+                        nargs='?',
                         default=10)
     parser.add_argument('--verbose',
                         '-v',
@@ -49,13 +59,16 @@ def parse_arguments():
 
 if __name__ == '__main__':
     args = parse_arguments()
+    t_start = args.start
+    t_end = args.end
     period = args.period
     verbose = args.verbose
     N = args.N
     M = args.M
+    k = args.k
     seed_generate = args.seed
 
-    data = data_generator.syntheticSeries(N, M)
+    data = data_generator.SyntheticSeries(N, M, k)
     data.generate(seed=seed_generate)
-    optimal_T = data.calculate_optimal_T(period=period, verbose=verbose)
+    optimal_T = data.calculate_optimal_T(t_start=t_start, t_end=t_end, period=period, verbose=verbose)
     print('Optimal T for chosen period is {}'.format(optimal_T))

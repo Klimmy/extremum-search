@@ -44,7 +44,7 @@ class SeriesDataset(Dataset):
         :param T: Multiplier for an extremum constraint. The bigger T the less extrema will be found
         :param seed: seed for time series generator
         """
-        self.data = data_generator.syntheticSeries(N, M, k)
+        self.data = data_generator.SyntheticSeries(N, M, k)
         self.data.generate(seed)
         self.data.calculate_extrema(T)
 
