@@ -24,7 +24,7 @@ def parse_arguments():
                         help='T, multiplier for extremum constraint. The bigger T the less extrema will be found',
                         type=float,
                         nargs='?',
-                        default=5.7)
+                        default=5.2)
     parser.add_argument('-k',
                         help='k, extremum constraint. k + 1 = minimum points between two extrema',
                         type=int,
@@ -206,7 +206,7 @@ class SyntheticSeries:
 
                 fig = plt.figure(num='Random subseries of X with extrema', figsize=(12, 8), dpi=80)
                 if prediction_model is not None:
-                    ax_grid = 211
+                    ax_grid = 111
                 else:
                     ax_grid = 111
                 ax1 = fig.add_subplot(ax_grid)
@@ -218,10 +218,10 @@ class SyntheticSeries:
                 ax1.scatter(sub_YMax + idx, sub_X[sub_YMax], color='r', label='Max', s=60, zorder=1)
                 ax1.scatter(sub_YMin + idx, sub_X[sub_YMin], color='b', label='Min', s=60, zorder=1)
                 if prediction_model is not None:
-                    ax2 = fig.add_subplot(212)
+                    ax2 = ax1.twinx()
                     sub_YMin_prediction, sub_YMax_prediction = prediction_model.predict_proba(sub_X)
-                    ax2.plot(range(idx, idx + self.N), sub_YMin_prediction, color='r')
-                    ax2.plot(range(idx, idx + self.N), sub_YMax_prediction, color='b')
+                    ax2.plot(range(idx, idx + self.N), sub_YMax_prediction, color='r')
+                    ax2.plot(range(idx, idx + self.N), sub_YMin_prediction, color='b')
                 ax1.legend(loc="best", fontsize=15)
                 plt.show()
         else:
