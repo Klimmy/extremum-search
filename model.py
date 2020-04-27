@@ -28,7 +28,7 @@ def parse_arguments():
                         help='T, multiplier for extremum constraint. The bigger T the less extrema will be found',
                         type=float,
                         nargs='?',
-                        default=1.1)
+                        default=5.2)
     parser.add_argument('-k',
                         help='k, extremum constraint. k + 1 = minimum points between two extrema',
                         type=int,
