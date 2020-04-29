@@ -80,10 +80,11 @@ class ExtremNet(nn.Module):
         """
         super(ExtremNet, self).__init__()
         self.n_classes = n_classes
-        self.conv1 = nn.Conv1d(1, 4, 5).to(device=device)
-        self.conv2 = nn.Conv1d(4, 16, 5).to(device=device)
+        self.conv1 = nn.Conv1d(1, 4, 10).to(device=device)
+        self.conv2 = nn.Conv1d(4, 16, 10).to(device=device)
+        self.conv3 = nn.Conv1d(16, 32, 10).to(device=device)
         self.pool = nn.MaxPool1d(2).to(device=device)
-        self.fc1 = nn.Linear((self.n_classes - 12) * 4, self.n_classes).to(device=device)
+        self.fc1 = nn.Linear((self.n_classes - 64) * 4, self.n_classes).to(device=device)
         self.fc2 = nn.Linear(self.n_classes, self.n_classes).to(device=device)
         self.bn = nn.BatchNorm1d(self.n_classes).to(device=device)
 
@@ -92,7 +93,8 @@ class ExtremNet(nn.Module):
         x = x.view(-1, 1, self.n_classes)
         x = self.pool(torch.relu(self.conv1(x)))
         x = self.pool(torch.relu(self.conv2(x)))
-        x = x.view(-1, (self.n_classes - 12) * 4)
+        x = self.pool(torch.relu(self.conv3(x)))
+        x = x.view(-1, (self.n_classes - 64) * 4)
         x = torch.relu(self.fc1(x))
         x = self.bn(x)
         x = self.fc2(x)
